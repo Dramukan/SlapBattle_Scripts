@@ -1,0 +1,140 @@
+if game.CoreGui:FindFirstChild("LagGui") then
+	game.CoreGui:FindFirstChild("LagGui"):Destroy()
+end
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "LagGui"
+ScreenGui.Parent = game.CoreGui
+
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Size = UDim2.new(0.15, 0, 0.45, 0)
+MainFrame.Position = UDim2.new(0.1, 0, 0.2, 0)
+MainFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+MainFrame.BorderColor3 = Color3.new(0, 0, 0)
+MainFrame.BorderSizePixel = 1
+MainFrame.Active = true
+MainFrame.BackgroundTransparency = 0 
+MainFrame.Draggable = true
+
+
+
+local GlovelLagFrame = Instance.new("Frame", MainFrame)
+GlovelLagFrame.Size = UDim2.new(0.8, 0, 0.75, 0)
+GlovelLagFrame.Position = UDim2.new(0.1, 0, 0.1, 0)
+GlovelLagFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+GlovelLagFrame.BorderColor3 = Color3.new(0, 0, 0)
+GlovelLagFrame.BorderSizePixel = 1
+GlovelLagFrame.Active = true
+GlovelLagFrame.BackgroundTransparency = 0 
+GlovelLagFrame.Draggable = true
+
+local UIListLayout = Instance.new("UIListLayout")
+UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0, 5)
+UIListLayout.Parent = GlovelLagFrame
+
+
+local function CreatButton(Text, Name)
+	local AntiLag = Instance.new("TextButton", GlovelLagFrame)
+	AntiLag.Size = UDim2.new(1, 0, 0.2, 0)
+	AntiLag.Position = UDim2.new(0, 0, 0, 0)
+	AntiLag.BackgroundColor3 = Color3.new(1, 1, 1)
+	AntiLag.BorderColor3 = Color3.new(0, 0, 0)
+	AntiLag.BorderSizePixel = 1
+	AntiLag.Text = Text
+	AntiLag.TextSize = 16
+	AntiLag.Name = Name
+	AntiLag.BackgroundTransparency = 0 
+	AntiLag.TextColor3 = Color3.new(0, 0, 0)
+	AntiLag.Font = Enum.Font.Code
+	return AntiLag
+end
+
+CreatButton("AntiLag", "AntiLag")
+CreatButton("EquipGlovel", "EquipGlovel")
+CreatButton("Tournament", "Tournament")
+CreatButton("ViewMap(Off)", "ViewMap")
+CreatButton("Lag", "Lag")
+
+_G.SpamLag = false
+for _, Button in ipairs(GlovelLagFrame:GetChildren()) do
+	if Button:IsA("TextButton") then
+		Button.MouseButton1Click:Connect(function()
+			if Button.Name == "AntiLag" then
+				local VFX = game.Players.LocalPlayer.PlayerScripts.VFXListener
+				local GiveBack = VFX:Clone()
+				Button.Text = "PermAntiLag"
+				if VFX then
+				    VFX:Destroy()
+				else 
+					GiveBack.Parent = game.Players.LocalPlayer.PlayerScripts
+				end
+			elseif Button.Name == "EquipGlovel" then
+				if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Glovel" then
+					fireclickdetector(workspace.Lobby["Glovel"].ClickDetector)
+					Button.Text = "EquipDefault"
+				else
+					fireclickdetector(workspace.Lobby["Default"].ClickDetector)
+					Button.Text = "EquipGlovel"
+				end
+			elseif Button.Name == "Tournament" then
+				if Button.Text == "Tournament" then
+					Button.Text = "Arena"
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Battlearena.Arena.CFrame * CFrame.new(0,5,0)
+				else 
+					Button.Text = "Tournament"
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,-5,0)
+				end
+			elseif Button.Name == "ViewMap" then
+				if game.Workspace.CurrentCamera.CameraSubject ~= game.Players.LocalPlayer.Character.Humanoid then
+					game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+					Button.Text = "ViewMap(Off)"
+				else
+					game.Workspace.CurrentCamera.CameraSubject = game.workspace.Origo
+					Button.Text = "ViewMap(On)"
+				end
+			elseif Button.Name == "Lag" then
+				if _G.SpamLag == false then
+					Button.Text = "Stop"
+					_G.SpamLag = true
+					while _G.SpamLag do
+						game:GetService("ReplicatedStorage").GlovelFunc:InvokeServer()
+					end
+				else
+					_G.SpamLag = false
+					Button.Text = "Lag"
+				end
+			end
+		end)
+	end
+end
+
+local MainLBel = Instance.new("TextLabel", MainFrame)
+MainLBel.Size = UDim2.new(1, 0, 0.1, 0)
+MainLBel.Position = UDim2.new(0, 0, 1, 0)
+MainLBel.BackgroundColor3 = Color3.new(255, 255, 255)
+MainLBel.BorderColor3 = Color3.new(0, 0, 0)
+MainLBel.BorderSizePixel = 1
+MainLBel.Text = "Lag server| DonjoSx"
+MainLBel.TextSize = 14
+MainLBel.BackgroundTransparency = 0 
+MainLBel.TextColor3 = Color3.new(0, 0, 0)
+MainLBel.Font = Enum.Font.Code
+
+local DestroyButton = Instance.new("TextButton", MainFrame)
+DestroyButton.Size = UDim2.new(0.08, 0, 0.06, 0)
+DestroyButton.Position = UDim2.new(0.01, 0, 0.02, 0)
+DestroyButton.BackgroundColor3 = Color3.new(255, 255, 255)
+DestroyButton.BorderColor3 = Color3.new(255, 255, 255)
+DestroyButton.BorderSizePixel = 1
+DestroyButton.Text = "X"
+DestroyButton.TextSize = 18
+DestroyButton.BackgroundTransparency = 0 
+DestroyButton.TextColor3 = Color3.new(0, 0, 0)
+DestroyButton.Font = Enum.Font.Code
+
+DestroyButton.MouseButton1Click:Connect(function()
+ScreenGui:Destroy()
+_G.SpamLag = false
+end)
