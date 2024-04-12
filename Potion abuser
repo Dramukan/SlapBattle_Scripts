@@ -1,0 +1,716 @@
+
+ -- Waits until game is loaded
+ local game = game
+ local GetService = game.GetService
+ if (not game.IsLoaded(game)) then
+	 local Loaded = game.Loaded
+	 Loaded.Wait(Loaded);
+	 wait(1.5)
+ end
+ 
+game.StarterGui:SetCore("SendNotification", {Title = "EH EMMH!!1!", Duration = 10, Text = "MADE BY @Donjoscripts 1!!1!"})
+local GloveLeaderstats = "spin"
+_G.RecipePotion = {
+	["Potion[Grug]"] = {"Mushroom"},
+	["Potion[Idiot]"] = {"Cake Mix"},
+	["Potion[Nightmare]"] = {"Dark Root","Dark Root","Dark Root"},
+	["Potion[Confusion]"] = {"Red Crystal","Blue Crystal","Glowing Mushroom"},
+	["Potion[Paralyzing]"] = {"Plane Flower","Plane Flower"},
+	["Potion[AntiToxin]"] = {"Blue Crystal","Glowing Mushroom","Plane Flower","Plane Flower","Elder Wood"},
+	["Potion[Invisible]"] = {"Hazel Lily","Hazel Lily","Blue Crystal"},
+	["Potion[Explosion]"] = {"Red Crystal","Fire Flower","Fire Flower"},
+	["Potion[Toxic]"] = {"Dark Root","Dark Root","Blood Rose","Red Crystal"},
+	["Potion[Freeze]"] = {"Winter Rose","Winter Rose","Wild Vine","Blue Crystal","Glowing Mushroom"},
+	["Potion[Feather]"] = {"Mushroom","Hazel Lily"},
+	["Potion[Speed]"] = {"Mushroom","Mushroom","Plane Flower","Hazel Lily","Blue Crystal"},
+	["Potion[Lethal]"] = {"Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root"},
+	["Potion[Slow]"] = {"Mushroom", "Mushroom", "Blue Crystal", "Blue Crystal", "Jade Stone", "Plane Flower"},
+}
+
+local NukeAlchemistGui = game.CoreGui:FindFirstChild("NukeAlchemistGui")
+if NukeAlchemistGui then
+    NukeAlchemistGui:Destroy()
+end
+
+local Screengui = Instance.new("ScreenGui", game.CoreGui)
+Screengui.Name = "NukeAlchemistGui"
+Screengui.ResetOnSpawn = false
+
+local MinecraftClickedSound = Instance.new("Sound", Screengui)
+MinecraftClickedSound.SoundId = "rbxassetid://535716488"
+MinecraftClickedSound.Volume = 1
+
+
+
+-- MainFrame and HideNShow
+local AlcheNuke = Instance.new("TextLabel" ,Screengui)
+AlcheNuke.Size = UDim2.new(0.18, 0, 0.04, 0)
+AlcheNuke.Position = UDim2.new(0.81, 0, 0.1, 0)
+AlcheNuke.Text = "Nuke server | DonjoSx"
+AlcheNuke.BackgroundColor3 = Color3.new(1, 1, 1)
+AlcheNuke.BorderSizePixel,AlcheNuke.BackgroundTransparency = 2, 0
+AlcheNuke.Active,AlcheNuke.Draggable = true, true
+
+local HideButton = Instance.new("TextButton", AlcheNuke)
+HideButton.Size = UDim2.new(0.1, 0, 1, 0)
+HideButton.Position = UDim2.new(0.9, 0, -0.1, 0)
+HideButton.Text,HideButton.TextSize,HideButton.TextColor3 = "-",25, Color3.new(0, 0, 0)
+HideButton.Font = Enum.Font.Cartoon
+HideButton.BackgroundTransparency = 1
+
+local FrameAlt = Instance.new("Frame",AlcheNuke)
+FrameAlt.Size = UDim2.new(1, 0, 14, 0)
+FrameAlt.Position = UDim2.new(0, 0, 1.1, 0)
+FrameAlt.BackgroundColor3 = Color3.new(1, 1, 1)
+FrameAlt.BorderColor3,FrameAlt.BorderSizePixel = Color3.new(0, 0, 0), 2
+FrameAlt.Active = false
+FrameAlt.BackgroundTransparency = 0.1
+
+
+local AltFFrame = Instance.new("Frame", FrameAlt)
+AltFFrame.Size = UDim2.new(0.89, 0, 0.96, 0)
+AltFFrame.Position = UDim2.new(0.1, 0, 0.03, 0)
+AltFFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+AltFFrame.BorderColor3 = Color3.new(0, 0, 0)
+AltFFrame.BorderSizePixel = 0
+AltFFrame.BackgroundTransparency = 0.8
+
+local ListAlt = Instance.new("UIListLayout", AltFFrame)
+ListAlt.HorizontalAlignment = Enum.HorizontalAlignment.Center
+ListAlt.SortOrder = Enum.SortOrder.LayoutOrder
+ListAlt.Padding = UDim.new(0, 5)
+
+local MorePlace = Instance.new("TextButton", FrameAlt)
+MorePlace.Size = UDim2.new(0.07, 0, 0.115, 0)
+MorePlace.Position = UDim2.new(0.01, 0, 0.03, 0)
+MorePlace.BackgroundColor3 = Color3.new(1, 1, 1)
+MorePlace.BorderColor3 = Color3.new(0, 0, 0)
+MorePlace.BorderSizePixel = 1
+MorePlace.Text = "<"
+MorePlace.TextSize = 15
+MorePlace.BackgroundTransparency = 0 
+MorePlace.TextColor3 = Color3.new(0, 0, 0)
+MorePlace.Font = Enum.Font.Cartoon
+
+local MorePotion = Instance.new("TextButton", FrameAlt)
+MorePotion.Size = UDim2.new(0.07, 0, 0.115, 0)
+MorePotion.Position = UDim2.new(0.01, 0, 0.17, 0)
+MorePotion.BackgroundColor3 = Color3.new(1, 1, 1)
+MorePotion.BorderColor3 = Color3.new(0, 0, 0)
+MorePotion.BorderSizePixel = 1
+MorePotion.Text = "<"
+MorePotion.TextSize = 15
+MorePotion.BackgroundTransparency = 0 
+MorePotion.TextColor3 = Color3.new(0, 0, 0)
+MorePotion.Font = Enum.Font.Cartoon
+
+local function ButtonAlt(Text,Name)
+    local ButtonAlt = Instance.new("TextButton", AltFFrame)
+    ButtonAlt.Size = UDim2.new(1, 0, 0.12, 0)
+    ButtonAlt.Text = Text
+    ButtonAlt.Name = Name
+    ButtonAlt.TextColor3 = Color3.new(0,0,0)
+    ButtonAlt.TextSize = 15
+    ButtonAlt.BackgroundTransparency = 0
+    ButtonAlt.BackgroundColor3 = Color3.new(1,1,1)
+    ButtonAlt.BorderColor3 = Color3.new(0,0,0)
+    ButtonAlt.Font = Enum.Font.SourceSans
+    if Text == "NUKE(Disabled)" then
+        ButtonAlt.LayoutOrder = 3
+    else
+        ButtonAlt.LayoutOrder = 1
+    end
+    return ButtonAlt
+end
+
+local function TextAlt(Text,Name)
+    local BoxCustomAlt = Instance.new("TextBox", AltFFrame)
+    BoxCustomAlt.Size = UDim2.new(1, 0, 0.12, 0)
+    BoxCustomAlt.Text = Text
+    BoxCustomAlt.Name = Name
+    BoxCustomAlt.TextColor3 = Color3.new(0,0,0)
+    BoxCustomAlt.TextSize = 15
+    BoxCustomAlt.BackgroundTransparency = 0.6
+    BoxCustomAlt.BackgroundColor3 = Color3.new(0.8,0.8,0.8)
+    BoxCustomAlt.BorderColor3 = Color3.new(0,0,0)
+    BoxCustomAlt.Font = Enum.Font.SourceSans
+    BoxCustomAlt.LayoutOrder = 2
+end
+
+
+local RangeValue = 100
+local HeightValue = 0
+local DelayValue = 0
+ButtonAlt("Place[Center]", "Place")
+ButtonAlt("Potion[Explosion]", "Potion")
+ButtonAlt("Invis[Ghost]", "Invis")
+ButtonAlt("NUKE(Disabled)", "Nuke")
+TextAlt("Range["..RangeValue.."]", "Range")
+TextAlt("Height[0]", "Height")
+TextAlt("Delay[0]", "Delay")
+
+--/// Place Frame ///--
+
+local PlaceChosse = Instance.new("TextButton", Screengui)
+PlaceChosse.Size = UDim2.new(0.21, 0, 0.04, 0)
+PlaceChosse.Position = UDim2.new(0.1, 0, 0.5, 0)
+PlaceChosse.BackgroundColor3 = Color3.new(1,1,1)
+PlaceChosse.BorderSizePixel = 1.4
+PlaceChosse.Draggable = true
+PlaceChosse.Text = "Place Menu"
+PlaceChosse.TextSize = 10
+PlaceChosse.Visible = false
+PlaceChosse.AutoButtonColor = false
+
+local PlaceChosseFrame = Instance.new("Frame",PlaceChosse)
+PlaceChosseFrame.Size = UDim2.new(1, 0, 8, 0)
+PlaceChosseFrame.Position = UDim2.new(0, 0, 1, 0)
+PlaceChosseFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+PlaceChosseFrame.BorderColor3 = Color3.new(0, 0, 0)
+PlaceChosseFrame.BorderSizePixel = 1.4
+PlaceChosseFrame.Active = true
+PlaceChosseFrame.BackgroundTransparency = 0
+
+PlaceChosse.MouseButton1Click:Connect(function()
+	PlaceChosseFrame.Visible = not PlaceChosseFrame.Visible
+end)
+
+local ScrollPlaceChosse = Instance.new("ScrollingFrame")
+ScrollPlaceChosse.Size = UDim2.new(0.98, 0, 0.935, 0)
+ScrollPlaceChosse.Position = UDim2.new(0.01, 0, 0.05, 0)
+ScrollPlaceChosse.BackgroundColor3 = Color3.new(1, 1, 1)
+ScrollPlaceChosse.BorderColor3 = Color3.new(0, 0, 0)
+ScrollPlaceChosse.BorderSizePixel = 1
+ScrollPlaceChosse.Parent = PlaceChosseFrame
+ScrollPlaceChosse.BackgroundTransparency = 0
+ScrollPlaceChosse.ScrollBarThickness = 0
+
+local gridLayoutPlaceChosse = Instance.new("UIGridLayout", ScrollPlaceChosse)
+gridLayoutPlaceChosse.CellSize = UDim2.new(0.4, 0, 0.16, 0)
+gridLayoutPlaceChosse.CellPadding = UDim2.new(0, 10, 0, 10)
+gridLayoutPlaceChosse.FillDirection = Enum.FillDirection.Horizontal
+gridLayoutPlaceChosse.HorizontalAlignment = Enum.HorizontalAlignment.Center
+gridLayoutPlaceChosse.SortOrder = Enum.SortOrder.LayoutOrder
+
+
+
+
+
+local function PlaceEnter(Text, Name)
+	local PlaceEnter = Instance.new("TextButton", ScrollPlaceChosse)
+	PlaceEnter.Size = UDim2.new(0.45, 0, 0.14, 0)
+	PlaceEnter.Position = UDim2.new(0.5, 0, 0.5, 0)
+	PlaceEnter.BackgroundColor3 = Color3.new(1, 1, 1)
+	PlaceEnter.BorderColor3 = Color3.new(0, 0, 0)
+	PlaceEnter.BorderSizePixel = 1
+	PlaceEnter.Text = Text
+	PlaceEnter.Name = Name
+	PlaceEnter.TextSize = 17
+	PlaceEnter.TextColor3 = Color3.new(0, 0, 0)
+	PlaceEnter.Font = Enum.Font.SourceSans
+	return PlaceEnter
+end
+
+PlaceEnter("Center", "Center")
+PlaceEnter("Island", "Island")
+PlaceEnter("Moai", "Moai")
+PlaceEnter("Cannon", "Cannon")
+PlaceEnter("Slapple", "Slapple")
+PlaceEnter("Tournament", "Tournament")
+PlaceEnter("Players", "Players")
+
+
+--/// Button Potion ///--
+local PotionChosse = Instance.new("TextButton", Screengui)
+PotionChosse.Size = UDim2.new(0.21, 0, 0.04, 0)
+PotionChosse.Position = UDim2.new(0.4, 0, 0 , 0)
+PotionChosse.BackgroundColor3 = Color3.new(1,1,1)
+PotionChosse.BorderSizePixel = 1.4
+PotionChosse.Draggable = true
+PotionChosse.Text = "Potion Menu"
+PotionChosse.TextSize = 10
+PotionChosse.Visible = false
+PotionChosse.AutoButtonColor = false
+
+local PotionChosseFrame = Instance.new("Frame",PotionChosse)
+PotionChosseFrame.Size = UDim2.new(1, 0, 18, 0)
+PotionChosseFrame.Position = UDim2.new(0, 0, 1, 0)
+PotionChosseFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+PotionChosseFrame.BorderColor3 = Color3.new(0, 0, 0)
+PotionChosseFrame.BorderSizePixel = 1.4
+PotionChosseFrame.Active = true
+PotionChosseFrame.BackgroundTransparency = 0
+
+PotionChosse.MouseButton1Click:Connect(function()
+	PotionChosseFrame.Visible = not PotionChosseFrame.Visible
+end)
+
+local HowManyPotion = Instance.new("TextBox", PotionChosseFrame)
+HowManyPotion.Size = UDim2.new(0.8, 0, 0.03, 0)
+HowManyPotion.Position = UDim2.new(0.1, 0, 0.01, 0)
+HowManyPotion.BackgroundColor3 = Color3.new(1, 1, 1)
+HowManyPotion.BorderSizePixel = 0
+HowManyPotion.Text = "Potion value[250] "
+HowManyPotion.TextColor3 = Color3.new(0, 0, 0)
+HowManyPotion.BackgroundTransparency = 0
+HowManyPotion.Font = Enum.Font.Cartoon
+HowManyPotion.TextSize = 15
+
+local HowPotion = "250"
+HowManyPotion.FocusLost:Connect(function(enterPressed)
+	if enterPressed then
+		HowPotion = HowManyPotion.Text
+		HowManyPotion.Text = "Potion Value["..HowPotion.."]"
+		game.StarterGui:SetCore("SendNotification", {Title = "Notifications", Duration = 1, Text = "Potion Value set to ["..HowPotion.."]"})
+	end
+end)
+
+local ScrollPotionChosse = Instance.new("ScrollingFrame")
+ScrollPotionChosse.Size = UDim2.new(0.98, 0, 0.935, 0)
+ScrollPotionChosse.Position = UDim2.new(0.01, 0, 0.05, 0)
+ScrollPotionChosse.BackgroundColor3 = Color3.new(1, 1, 1)
+ScrollPotionChosse.BorderColor3 = Color3.new(0, 0, 0)
+ScrollPotionChosse.BorderSizePixel = 1
+ScrollPotionChosse.Parent = PotionChosseFrame
+ScrollPotionChosse.BackgroundTransparency = 0
+ScrollPotionChosse.ScrollBarThickness = 0
+
+local gridLayoutPotionChosse = Instance.new("UIGridLayout", ScrollPotionChosse)
+gridLayoutPotionChosse.CellSize = UDim2.new(0.47, 0, 0.07, 0)
+gridLayoutPotionChosse.CellPadding = UDim2.new(0, 5, 0, 5)
+gridLayoutPotionChosse.FillDirection = Enum.FillDirection.Horizontal
+gridLayoutPotionChosse.HorizontalAlignment = Enum.HorizontalAlignment.Center
+gridLayoutPotionChosse.SortOrder = Enum.SortOrder.LayoutOrder
+
+
+
+
+
+local function PotionGet(Text, Name)
+    local PotionGet = Instance.new("TextButton", ScrollPotionChosse)
+    PotionGet.Size = UDim2.new(0.45, 0, 0.14, 0)
+    PotionGet.Position = UDim2.new(0.5, 0, 0.5, 0)
+    PotionGet.BackgroundColor3 = Color3.new(1, 1, 1)
+    PotionGet.BorderColor3 = Color3.new(0, 0, 0)
+    PotionGet.BorderSizePixel = 1
+    PotionGet.Text = Text
+    PotionGet.Name = Name
+    PotionGet.TextSize = 17
+    PotionGet.TextColor3 = Color3.new(0, 0, 0)
+    PotionGet.Font = Enum.Font.SourceSans
+    return PotionGet
+end
+
+PotionGet("Lethal", "Lethal")
+PotionGet("Explosion", "Explosion")
+PotionGet("Nightmare", "Nightmare")
+PotionGet("Confusion", "Confusion")
+PotionGet("Toxic", "Toxic")
+PotionGet("AntiToxin", "AntiToxin")
+PotionGet("Slow", "Slow")
+PotionGet("Speed", "Speed")
+PotionGet("Grug", "Grug")
+PotionGet("Idiot", "Idiot")
+PotionGet("Paralyzing", "Paralyzing")
+PotionGet("Invisible", "Invisible")
+PotionGet("Feather", "Feather")
+PotionGet("Freeze", "Freeze")
+PotionGet("Blind", "Blind")
+PotionGet("Soap", "Soap")
+
+
+--/// Functions ///-- 
+
+for _, Button in ipairs(AltFFrame:GetChildren()) do
+    if Button:IsA("TextBox") then
+        Button.FocusLost:Connect(function(enterPressed)
+            if enterPressed then
+                MinecraftClickedSound:Play()
+                if Button.Name == "Range" then
+                    RangeValue = Button.Text
+                    game.StarterGui:SetCore("SendNotification", {Title = "Notifications", Duration = 1, Text = "Range set to ["..RangeValue.."]"})
+                    Button.Text = "Range["..RangeValue.."]"
+                elseif Button.Name == "Height" then
+                    HeightValue = Button.Text
+                    game.StarterGui:SetCore("SendNotification", {Title = "Notifications", Duration = 1, Text = "Height set to ["..HeightValue.."]"})
+                    Button.Text = "Height["..HeightValue.."]"
+                elseif Button.Name == "Delay" then
+                    DelayValue = Button.Text
+                    game.StarterGui:SetCore("SendNotification", {Title = "Notifications", Duration = 1, Text = "Delay set to ["..DelayValue.."]"})
+                    Button.Text = "Delay["..DelayValue.."]"
+                end
+            end
+        end)
+    end
+end
+
+local function HideAndShow()
+    if HideButton.Text == "-" then
+        HideButton.Text = "+"
+        FrameAlt.Visible = false
+    else
+        HideButton.Text = "-"
+        FrameAlt.Visible = true
+    end
+end
+
+local function ThrowPotion()
+	for _, Button in ipairs(AltFFrame:GetChildren()) do
+		if Button:IsA("TextButton") then
+			if Button.Name == "Potion" then
+				if Button.Text == "Potion[Explosion]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Expotion",true)
+				elseif Button.Text == "Potion[AntiToxin]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Antitoxin Potion",true)
+				elseif Button.Text == "Potion[Paralyzing]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Paralyzing Potion",true)
+				elseif Button.Text == "Potion[Idiot]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Idiot Potion",true)
+				elseif Button.Text == "Potion[Invisible]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Invisible Potion",true)
+				elseif Button.Text == "Potion[Grug]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","grug potion",true)
+				elseif Button.Text == "Potion[Slow]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Slow Potion",true)
+				elseif Button.Text == "Potion[Confusion]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Confusing Potion",true)
+				elseif Button.Text == "Potion[Freeze]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Freeze Potion",true)
+				elseif Button.Text == "Potion[Speed]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Speed Potion",true)
+				elseif Button.Text == "Potion[Nightmare]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Nightmare Potion",true)
+				elseif Button.Text == "Potion[Feather]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Feather Potion",true)
+				elseif Button.Text == "Potion[Toxic]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Toxic Potion",true)
+				elseif Button.Text == "Potion[Lethal]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Lethal Poison",true)
+				elseif Button.Text == "Potion[Blind]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Nightmare Potion",true)
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Confusing Potion",true)
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Idiot Potion",true)
+				elseif Button.Text == "Potion[Soap]" then
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Paralyzing Potion",true)
+					game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("UsePotion","Freeze Potion",true)
+				end
+			end
+		end
+	end
+end
+
+local function PlaceTP()
+	for _, Button in ipairs(AltFFrame:GetChildren()) do
+		if Button:IsA("TextButton") then
+			if Button.Name == "Place" then
+				if Button.Text == "Place[Center]" or Button.Text == "Place[Players]" or Button.Text == "Place[Island]" then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,-5,0)
+				elseif Button.Text == "Place[Moai]" then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.island4.moyai.CFrame * CFrame.new(0,5,0)
+				elseif Button.Text == "Place[Slapple]" then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.island5.Union.CFrame * CFrame.new(0,5,0)
+				elseif Button.Text == "Place[Cannon]" then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(257, 34, 189)
+				elseif Button.Text == "Place[Tournament]" then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Battlearena.Arena.CFrame * CFrame.new(0,5,0)
+				end
+			end
+		end
+	end
+end
+
+local function TARGETPLACE()
+	for _, Button in ipairs(AltFFrame:GetChildren()) do
+		if Button:IsA("TextButton") then
+			if Button.Name == "Place" then
+				local player = game.Players.LocalPlayer
+				local randomX = math.random(-RangeValue, RangeValue)
+			    local randomZ = math.random(-RangeValue, RangeValue)
+				if Button.Text == "Place[Center]" then
+					player.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(randomX, HeightValue, randomZ)
+				elseif Button.Text == "Place[Island]" then
+					local randomIslandIsland= math.random(1, 3)
+					if randomIslandIsland == 1 then
+					    player.Character.HumanoidRootPart.CFrame = CFrame.new(-206, -5, 1) * CFrame.new(randomX, HeightValue, randomZ)
+					elseif randomIslandIsland == 2 then
+					    player.Character.HumanoidRootPart.CFrame = CFrame.new(-4, -5, 203) * CFrame.new(randomX, HeightValue, randomZ)
+					elseif randomIslandIsland == 3 then
+					    player.Character.HumanoidRootPart.CFrame = CFrame.new(-8, -5, -203) * CFrame.new(randomX, HeightValue, randomZ)
+					end
+				elseif Button.Text == "Place[Moai]" then
+					player.Character.HumanoidRootPart.CFrame = CFrame.new(224, -16, -5) * CFrame.new(randomX, HeightValue, randomZ)
+				elseif Button.Text == "Place[Slapple]" then
+					player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.island5.Union.CFrame * CFrame.new(randomX, HeightValue, randomZ)
+				elseif Button.Text == "Place[Cannon]" then
+					player.Character.HumanoidRootPart.CFrame = CFrame.new(257, 34, 189) * CFrame.new(randomX, HeightValue, randomZ)
+				elseif Button.Text == "Place[Tournament]" then
+					player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Battlearena.Arena.CFrame * CFrame.new(randomX, HeightValue, randomZ)
+				elseif Button.Text == "Place[Players]" then
+					local players = game.Players:GetPlayers()
+					local randomPlayer = players[math.random(1, #players)]
+					if randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil then
+					    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = randomPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0, HeightValue, 10)
+					end
+				end
+			end
+		end
+	end
+end
+
+local function NUKENOW()
+	for _, Button in ipairs(AltFFrame:GetChildren()) do
+		if Button:IsA("TextButton") then
+			if Button.Name == "Nuke" then
+				if Button.Text == "NUKE(Enabled)" then
+					Button.Text = "NUKE(Disabled)"		
+					NUKING = false
+					PlaceTP()
+					game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+				
+				elseif Button.Text == "NUKE(Disabled)" then --/// Enable Nuke ///--
+					Button.Text = "NUKE(Enabled)"
+					if not (game.Workspace.CurrentCamera and game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Humanoid) then return end
+					
+					for _, Button in ipairs(AltFFrame:GetChildren()) do
+						if Button:IsA("TextButton") then
+							if Button.Name == "Place" then
+								if Button.Text == "Place[Center]" or Button.Text == "Place[Island]" or Button.Text == "Place[Players]" then
+									game.Workspace.CurrentCamera.CameraSubject = game.workspace.Origo
+								elseif Button.Text == "Place[Moai]" then
+									game.Workspace.CurrentCamera.CameraSubject = game:GetService("Workspace").Arena.island4.moyai
+								elseif Button.Text == "Place[Slapple]" then
+									game.Workspace.CurrentCamera.CameraSubject = game:GetService("Workspace").Arena.island5.Union
+								elseif Button.Text == "Place[Cannon]" then
+									game.Workspace.CurrentCamera.CameraSubject = game:GetService("Workspace").Arena.CannonIsland.Cannon.MovingCannon.CannonPart.CannonBarrel
+								elseif Button.Text == "Place[Tournament]" then
+									game.Workspace.CurrentCamera.CameraSubject = game:GetService("Workspace").Battlearena.Arena
+								end
+							end
+						end
+					end		
+					NUKING = true	
+					while NUKING do
+						TARGETPLACE()
+						ThrowPotion()
+						wait(DelayValue)
+					end
+				end
+			end
+		end
+	end
+end
+local function InvisibleClone()
+	for _, Button in ipairs(AltFFrame:GetChildren()) do
+		if Button:IsA("TextButton") then
+			if Button.Name == "Invis" then
+				if Button.Text == "Invis[Ghost]" then
+					if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
+						OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
+						fireclickdetector(workspace.Lobby["Ghost"].ClickDetector)
+						game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+						fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+					else
+						game.StarterGui:SetCore("SendNotification", {Title = "Notifications", Duration = 1, Text = "You must have 666+ slaps"})
+					end
+				else
+					if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 0 then
+						fireclickdetector(workspace.Lobby["Replica"].ClickDetector)
+						game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
+						fireclickdetector(workspace.Lobby[GloveLeaderstats].ClickDetector)
+					else
+						game.StarterGui:SetCore("SendNotification", {Title = "Notifications", Duration = 1, Text = "You must have 4000+ slaps"})
+					end
+				end
+			end
+		end
+	end
+end
+
+local function MakePotion()
+	fireclickdetector(workspace.Lobby["Alchemist"].ClickDetector)
+	wait(0.2)
+	workspace.BountyHunterRoom.BountyHunterBooth._configPart.OpenRemote:InvokeServer()
+	wait()
+	workspace.BountyHunterRoom.BountyHunterBooth._configPart.LeaveRemote:FireServer()
+
+	if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+		for _, Button in ipairs(AltFFrame:GetChildren()) do
+			if Button:IsA("TextButton") then
+				if Button.Name == "Potion" then
+					_G.MakePotion = Button.Text
+				end
+			end
+		end
+		for b = 1, HowPotion do
+			if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+				fireclickdetector(workspace.Lobby["Alchemist"].ClickDetector)
+				game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+				fireclickdetector(workspace.Lobby[GloveLeaderstats].ClickDetector)
+			end
+			task.wait(0)
+		    if _G.MakePotion == "Potion[Blind]" then
+		        for i = 1, #_G.RecipePotion["Potion[Nightmare]"] do
+		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion["Potion[Nightmare]"][i]}))
+		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion["Potion[Nightmare]"][i]}))
+		        end
+					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+				for i = 1, #_G.RecipePotion["Potion[Slow]"] do
+		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion["Potion[Confusion]"][i]}))
+		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion["Potion[Confusion]"][i]}))
+		        end
+					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+		        for i = 1, #_G.RecipePotion["Potion[Idiot]"] do
+		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion["Potion[Idiot]"][i]}))
+		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion["Potion[Idiot]"][i]}))
+		        end
+					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+		    elseif _G.MakePotion == "Potion[Soap]" then
+		        for i = 1, #_G.RecipePotion["Potion[Freeze]"] do
+		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion["Potion[Freeze]"][i]}))
+		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion["Potion[Freeze]"][i]}))
+		        end
+					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+				for i = 1, #_G.RecipePotion["Potion[Paralyzing]"] do
+		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion["Potion[Paralyzing]"][i]}))
+		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion["Potion[Paralyzing]"][i]}))
+		        end
+					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+		    else
+				for i = 1, #_G.RecipePotion[_G.MakePotion] do
+					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion[_G.MakePotion][i]}))
+					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion[_G.MakePotion][i]}))
+				end
+			end
+			game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+			fireclickdetector(workspace.Lobby[GloveLeaderstats].ClickDetector)
+		end
+		fireclickdetector(workspace.Lobby[GloveLeaderstats].ClickDetector)
+	else
+		game.StarterGui:SetCore("SendNotification", {Title = "Error", Duration = 1, Text = "Bro don't have Alchemist or don't spam"})
+	end
+end
+
+--/// Active ///--
+local NUKING = false
+HideButton.MouseButton1Click:Connect(HideAndShow)
+
+for _, Button in ipairs(AltFFrame:GetChildren()) do
+	if Button:IsA("TextButton") then
+		Button.MouseButton1Click:Connect(function()
+			for _, Button in ipairs(AltFFrame:GetChildren()) do
+				if Button:IsA("TextButton") then
+					Button.BackgroundTransparency = 0
+				end
+			end
+			--Button.BackgroundTransparency = 1
+			MinecraftClickedSound:Play()
+			if Button.Name == "Place" then
+				PlaceTP()
+			elseif Button.Name == "Invis" then
+				InvisibleClone()
+			elseif Button.Name == "Potion" then
+				MakePotion()
+			elseif Button.Name == "Nuke" then
+				NUKENOW()
+			end
+		end)
+	end
+end
+
+
+local function ChangePPText(Name, Text)
+	for _, Button in ipairs(AltFFrame:GetChildren()) do
+		if Button:IsA("TextButton") then
+			if Button.Name == Name then
+				Button.Text = Text
+			end
+		end
+	end
+end
+
+for _, Button in ipairs(ScrollPlaceChosse:GetChildren()) do
+	if Button:IsA("TextButton") then
+		Button.MouseButton1Click:Connect(function()
+		MinecraftClickedSound:Play()
+			if Button.Name == "Center" then
+				ChangePPText("Place", "Place[Center]")
+			elseif Button.Name == "Island" then
+				ChangePPText("Place", "Place[Island]")
+			elseif Button.Name == "Moai" then
+				ChangePPText("Place", "Place[Moai]")
+			elseif Button.Name == "Cannon" then
+				ChangePPText("Place", "Place[Cannon]")
+			elseif Button.Name == "Slapple" then
+				ChangePPText("Place", "Place[Slapple]")
+			elseif Button.Name == "Tournament" then
+				ChangePPText("Place", "Place[Tournament]")
+			elseif Button.Name == "Players" then
+				ChangePPText("Place", "Place[Players]")
+			end
+		end)
+	end
+end
+
+for _, Button in ipairs(ScrollPotionChosse:GetChildren()) do
+	if Button:IsA("TextButton") then
+		Button.MouseButton1Click:Connect(function()
+		MinecraftClickedSound:Play()
+			if Button.Name == "Explosion" then
+				ChangePPText("Potion", "Potion[Explosion]")
+			elseif Button.Name == "Freeze" then
+				ChangePPText("Potion", "Potion[Freeze]")
+			elseif Button.Name == "Lethal" then
+				ChangePPText("Potion", "Potion[Lethal]")
+			elseif Button.Name == "Toxic" then
+				ChangePPText("Potion", "Potion[Toxic]")
+			elseif Button.Name == "AntiToxin" then
+				ChangePPText("Potion", "Potion[AntiToxin]")
+			elseif Button.Name == "Nightmare" then
+				ChangePPText("Potion", "Potion[Nightmare]")
+			elseif Button.Name == "Confusion" then
+				ChangePPText("Potion", "Potion[Confusion]")
+			elseif Button.Name == "Slow" then
+				ChangePPText("Potion", "Potion[Slow]")
+			elseif Button.Name == "Speed" then
+				ChangePPText("Potion", "Potion[Speed]")
+			elseif Button.Name == "Grug" then
+				ChangePPText("Potion", "Potion[Grug]")
+			elseif Button.Name == "Idiot" then
+				ChangePPText("Potion", "Potion[Idiot]")
+			elseif Button.Name == "Paralyzing" then
+				ChangePPText("Potion", "Potion[Paralyzing]")
+			elseif Button.Name == "Invisible" then
+				ChangePPText("Potion", "Potion[Invisible]")
+			elseif Button.Name == "AntiToxin" then
+				ChangePPText("Potion", "Potion[AntiToxin]")
+			elseif Button.Name == "Feather" then
+				ChangePPText("Potion", "Potion[Feather]")
+			elseif Button.Name == "Blind" then
+				ChangePPText("Potion", "Potion[Blind]")
+			elseif Button.Name == "Soap" then
+				ChangePPText("Potion", "Potion[Soap]")
+			end
+		end)
+	end
+end
+
+
+MorePlace.MouseButton1Click:Connect(function()
+	if MorePlace.Text == "<" then
+		MorePlace.Text = ">"
+		PlaceChosse.Visible = not PlaceChosse.Visible
+	else
+		MorePlace.Text = "<"
+		PlaceChosse.Visible = not PlaceChosse.Visible
+	end
+end)
+
+MorePotion.MouseButton1Click:Connect(function()
+	if MorePotion.Text == "<" then
+		MorePotion.Text = ">"
+		PotionChosse.Visible = not PotionChosse.Visible
+	else
+		MorePotion.Text = "<"
+		PotionChosse.Visible = not PotionChosse.Visible
+	end
+end)
