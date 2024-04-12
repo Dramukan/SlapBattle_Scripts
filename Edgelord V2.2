@@ -657,7 +657,7 @@ PhaseEffect.MouseButton1Click:Connect(function()
 	OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 	EffectUI.Visible = false
     fireclickdetector(workspace.Lobby.Phase.ClickDetector)
-    wait()
+    wait(0.5)
     if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Phase" then
 	    game.StarterGui:SetCore("SendNotification", {Title = "ERROR!", Text = "You don't have Phase glove", Duration = 2})
 		EffectUI.Visible = true
