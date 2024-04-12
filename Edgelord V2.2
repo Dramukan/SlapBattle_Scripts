@@ -593,6 +593,7 @@ local function PlayerDead()
 			X2Ui.Visible = false
 		end
 		fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+		game.Players.LocalPlayer.leaderstats.Glove.Value = OGlove
 	    SlapAura = true
 	    Teleport = false
 	    TeleportPE = false
