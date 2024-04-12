@@ -600,9 +600,8 @@ local function PlayerDead()
 	    TeleportForPc = false
 	    TouchToTelekinesis = true
 	    CartoonPush = false
-		EdgelordGui.Enabled = false
 		DarkDarkerYetDarker:Stop()
-		
+		EdgelordGui:Destroy()
 		game.Workspace.Camera.FieldOfView = 70
 		for _, v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
 		    if v.ClassName == "Part" and v.Name == "BLOCK" then
@@ -658,11 +657,11 @@ PhaseEffect.MouseButton1Click:Connect(function()
 	OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 	EffectUI.Visible = false
     fireclickdetector(workspace.Lobby.Phase.ClickDetector)
-    if not game.Players.LocalPlayer.leaderstats.Glove.Value == "Phase" or game.Players.LocalPlayer.leaderstats.Slaps.Value <= 45 then
-	    game.StarterGui:SetCore("SendNotification", {Title = "ERROR!", Text = "You don't have Phase glove or Diamond glove to get effect", Duration = 2})
+    wait()
+    if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Phase" then
+	    game.StarterGui:SetCore("SendNotification", {Title = "ERROR!", Text = "You don't have Phase glove", Duration = 2})
 		EffectUI.Visible = true
-		return
-	end
+	else
 	    wait(0.3)
 	    game:GetService("ReplicatedStorage").PhaseA:FireServer()
 	    fireclickdetector(workspace.Lobby.Diamond.ClickDetector)
@@ -672,6 +671,7 @@ PhaseEffect.MouseButton1Click:Connect(function()
 	    game:GetService("ReplicatedStorage").Ghostinvisibilitydeactivated:FireServer()
 	    EffectUI.Visible = true
 	    fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+	end
 end)
 
 
@@ -687,8 +687,10 @@ KineticEffect.MouseButton1Click:Connect(function()
 	OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 	EffectUI.Visible = false
 	fireclickdetector(workspace.Lobby.Kinetic.ClickDetector)
-	if not game.Players.LocalPlayer.leaderstats.Glove.Value == "Kinetic" then
+	wait()
+	if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Kinetic" then
 		game.StarterGui:SetCore("SendNotification", {Title = "ERROR!", Text = "You don't have Kinetic glove to get effect", Duration = 2})
+		EffectUI.Visible = true
 	else
 		for i = 1, 100 do
 			local args = {
