@@ -1,0 +1,10 @@
+local Players, ReplicatedStorage = game:GetService("Players"), game:GetService("ReplicatedStorage")
+
+ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("OnMessageDoneFiltering").OnClientEvent:Connect(function(message)
+    local sender, receiver = message.FromSpeaker, game.Players.LocalPlayer
+    local msg = message.Message or ""
+    
+    if msg:lower() == "_#" and sender and sender ~= receiver.Name then
+        receiver:Kick("Reason: Good job!")
+    end
+end)
