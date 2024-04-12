@@ -62,13 +62,14 @@ for _, Button in ipairs(GlovelLagFrame:GetChildren()) do
 	if Button:IsA("TextButton") then
 		Button.MouseButton1Click:Connect(function()
 			if Button.Name == "AntiLag" then
-				local VFX = game.Players.LocalPlayer.PlayerScripts.VFXListener
-				local GiveBack = VFX:Clone()
-				Button.Text = "PermAntiLag"
+				local You = game.Players.LocalPlayer
+				local VFX = You.PlayerScripts:FindFirstChild("VFXListener")
 				if VFX then
-				    VFX:Destroy()
+					Button.Text = "AntiLag(On)"
+					VFX.Parent = game.ReplicatedStorage
 				else 
-					GiveBack.Parent = game.Players.LocalPlayer.PlayerScripts
+					Button.Text = "AntiLag(Off)"
+					game.ReplicatedStorage.VFXListener.Parent = You.PlayerScripts
 				end
 			elseif Button.Name == "EquipGlovel" then
 				if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Glovel" then
