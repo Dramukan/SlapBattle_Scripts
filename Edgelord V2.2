@@ -687,7 +687,7 @@ KineticEffect.MouseButton1Click:Connect(function()
 	OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 	EffectUI.Visible = false
 	fireclickdetector(workspace.Lobby.Kinetic.ClickDetector)
-	wait()
+	wait(0.5)
 	if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Kinetic" then
 		game.StarterGui:SetCore("SendNotification", {Title = "ERROR!", Text = "You don't have Kinetic glove to get effect", Duration = 2})
 		EffectUI.Visible = true
