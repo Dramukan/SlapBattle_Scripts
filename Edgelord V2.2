@@ -348,7 +348,7 @@ local function EClicked()
 local gloveHits = {
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
-    -----------// Glove Hit General \\-----------
+    -----------// Glove Hit General Or New Glove \\-----------
     ["T H I C K"] = game.ReplicatedStorage.GeneralHit,
     ["Squid"] = game.ReplicatedStorage.GeneralHit,
     ["Gummy"] = game.ReplicatedStorage.GeneralHit,
@@ -367,7 +367,7 @@ local gloveHits = {
     ["Snowball"] = game.ReplicatedStorage.GeneralHit,
     ["fish"] = game.ReplicatedStorage.GeneralHit,
     ["Killerfish"] = game.ReplicatedStorage.GeneralHit,
-    ["Ă°Å¸â€”Â¿"] = game.ReplicatedStorage.GeneralHit,
+    ["🗿"] = game.ReplicatedStorage.GeneralHit,
     ["Obby"] = game.ReplicatedStorage.GeneralHit,
     ["Voodoo"] = game.ReplicatedStorage.GeneralHit,
     ["Leash"] = game.ReplicatedStorage.GeneralHit,
@@ -412,10 +412,18 @@ local gloveHits = {
     ["Ultra Instinct"] = game.ReplicatedStorage.GeneralHit,
     ["Admin"] = game.ReplicatedStorage.GeneralHit,
     ["Prop"] = game.ReplicatedStorage.GeneralHit,
+    ["Joust"] = game.ReplicatedStorage.GeneralHit,
     ["Slapstick"] = game.ReplicatedStorage.GeneralHit,
-    ["Run"] = game.ReplicatedStorage.GeneralHit,
     ["Firework"] = game.ReplicatedStorage.GeneralHit,
-    -----------// Glove Hit Normal And New \\-----------
+    ["Run"] = game.ReplicatedStorage.GeneralHit,
+    ["Beatdown"] = game.ReplicatedStorage.GeneralHit,
+    ["L.O.L.B.O.M.B"] = game.ReplicatedStorage.GeneralHit,
+    ["Glovel"] = game.ReplicatedStorage.GeneralHit,
+    ["Chicken"] = game.ReplicatedStorage.GeneralHit,
+    ["Divebomb"] = game.ReplicatedStorage.GeneralHit,
+    ["Lamp"] = game.ReplicatedStorage.GeneralHit,
+    ["Pocket"] = game.ReplicatedStorage.GeneralHit,
+    -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
     ["Snow"] = game.ReplicatedStorage.SnowHit,
@@ -495,244 +503,4 @@ local gloveHits = {
     ["Recall"] = game.ReplicatedStorage.HtStun,
     ["Balloony"] = game.ReplicatedStorage.HtStun,
     ["Sparky"] = game.ReplicatedStorage.HtStun,
-    ["Boogie"] = game.ReplicatedStorage.HtStun,
-    ["Stun"] = game.ReplicatedStorage.HtStun,
-    ["Coil"] = game.ReplicatedStorage.HtStun,
-    -----------// Glove Hit Diamond \\-----------
-    ["Diamond"] = game.ReplicatedStorage.DiamondHit,
-    ["Megarock"] = game.ReplicatedStorage.DiamondHit,
-    -----------// Glove Hit Celestial \\-----------
-    ["Moon"] = game.ReplicatedStorage.CelestialHit,
-    ["Jupiter"] = game.ReplicatedStorage.CelestialHit,
-    -----------// Glove Hard \\-----------
-    ["Mitten"] = game.ReplicatedStorage.MittenHit,
-    ["Hallow Jack"] = game.ReplicatedStorage.HallowHIT,
-    -----------// Glove Hit Power \\-----------
-    ["OVERKILL"] = game.ReplicatedStorage.Overkillhit,
-    ["The Flex"] = game.ReplicatedStorage.FlexHit,
-    ["Custom"] = game.ReplicatedStorage.CustomHit,
-    ["God's Hand"] = game.ReplicatedStorage.Godshand,
-    ["Error"] = game.ReplicatedStorage.Errorhit
-}
-
-    if SlapAura then return end
-    if tick() - lastClickTime < TelekinesisCooldown then
-        -- TelekinesisCooldown is still active, exit function
-        return
-    end
-	
-	    SlapAura = true
-	
-	    for i,v in pairs(game.Players:GetChildren()) do
-			StopWalk()
-	        game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.TheForceAnim):Play()
-	        if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-	            if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
-	                if v.Character.Head:FindFirstChild("UnoReverseCard") == nil then
-	                    local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-	                    if Magnitude <= 25 then
-							if CartoonPush then
-								game:GetService("ReplicatedStorage").slapstick:FireServer("dash")
-							else
-		                        gloveHits[OGlove]:FireServer(v.Character:WaitForChild("HumanoidRootPart"), true)
-							end
-	                    end
-	                end
-	            end
-	        end
-	    end
-
-    lastClickTime = tick()
-    SlapAura = false
-    	wait(0.98)
-	WalkAnim()
-end
-
-
-local function onInputBegan(input, gameProcessedEvent)
-    if gameProcessedEvent then return end
-    if not TouchToTelekinesis then return end
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch or input.KeyCode == Enum.KeyCode.E then
-        EClicked()
-    end
-end
-
-local TeleportForPc = false
-local Teleport = false
-local TeleportPE = false
-local function TClicked()
-    if Teleport then 
-        return 
-    end
-    Teleport = true
-    TeleportPE = true
-end
-
-game:GetService("UserInputService").InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch and TeleportPE then
-		local Teleportpos = game.Players.LocalPlayer:GetMouse().Hit+Vector3.new(0,2.5,0)
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Teleportpos.X,Teleportpos.Y,Teleportpos.Z)
-		Teleport = false
-		TeleportPE = false
-	end
-end)
-
-local function FClicked()
-	if DarkDarkerYetDarker.Playing then
-		DarkDarkerYetDarker:Stop()
-	else
-		DarkDarkerYetDarker:Play()
-	end
-end
-
-local X2Ui = game.Players.LocalPlayer.PlayerGui.GameUI.HUD.HUD.SlapCounter.DoubleSlapMultiplier
-
-local function PlayerDead()
-	if game.Players.LocalPlayer.PlayerGui.EdgelordGui then
-		if X2Ui.Visible == true and X2Ui.Text == "Made By DonjoSx" then
-			X2Ui.Visible = false
-		end
-		fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-		game.Players.LocalPlayer.leaderstats.Glove.Value = OGlove
-	    SlapAura = true
-	    Teleport = false
-	    TeleportPE = false
-	    TeleportForPc = false
-	    TouchToTelekinesis = true
-	    CartoonPush = false
-		DarkDarkerYetDarker:Stop()
-		EdgelordGui:Destroy()
-		game.Workspace.Camera.FieldOfView = 70
-		for _, v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
-		    if v.ClassName == "Part" and v.Name == "BLOCK" then
-		        v.CanTouch = true
-		    end
-		end
-		workspace.DEATHBARRIER.CanTouch = true
-		workspace.DEATHBARRIER2.CanTouch = true
-		workspace.dedBarrier.CanTouch = true
-		workspace.ArenaBarrier.CanTouch = true
-		workspace.AntiDefaultArena.CanTouch = true
-		Antivoid.CanCollide = false
-	end
-end
-
-
---ButtonConnect
-EAbilityButtonReal.MouseButton1Click:Connect(EClicked)
-TAbilityButtonReal.MouseButton1Click:Connect(TClicked)
-FAbilityButtonReal.MouseButton1Click:Connect(FClicked)
-game:GetService("UserInputService").InputBegan:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.T and TeleportForPc then
-		local Teleportpos = game.Players.LocalPlayer:GetMouse().Hit+Vector3.new(0,2.5,0)
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Teleportpos.X,Teleportpos.Y,Teleportpos.Z)
-    end
-end)
-game:GetService("UserInputService").InputBegan:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.F then
-        FClicked()
-    end
-end)
-
-
-local EffectUI = Instance.new("Frame",EdgelordGui)
-EffectUI.Size = UDim2.new(0.3, 0, 0.3, 0)
-EffectUI.Position = UDim2.new(0.34, 0, -0.2, 0)
-EffectUI.BackgroundColor3 = Color3.new(1, 1, 1)
-EffectUI.BorderColor3 = Color3.new(0, 0, 0)
-EffectUI.BorderSizePixel = 1
-EffectUI.Active = false
-local EffectUICorner = Instance.new("UICorner", EffectUI)
-EffectUICorner.CornerRadius = UDim.new(0, 20)
-
-
-local PhaseEffect = Instance.new("ImageButton", EffectUI)
-PhaseEffect.Size = UDim2.new(0.28, 0, 0.48, 0)
-PhaseEffect.Position = UDim2.new(0.05, 0, 0.42, 0)
-PhaseEffect.BackgroundColor3 = Color3.new(0, 0, 0)
-PhaseEffect.BorderColor3 = Color3.new(0, 0, 0)
-PhaseEffect.BorderSizePixel = 1
-PhaseEffect.Image = "rbxthumb://type=Asset&id=13780996974&w=150&h=150"
-PhaseEffect.MouseButton1Click:Connect(function()
-	OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
-	EffectUI.Visible = false
-    fireclickdetector(workspace.Lobby.Phase.ClickDetector)
-    wait(0.5)
-    if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Phase" then
-	    game.StarterGui:SetCore("SendNotification", {Title = "ERROR!", Text = "You don't have Phase glove", Duration = 2})
-		EffectUI.Visible = true
-	else
-	    wait(0.3)
-	    game:GetService("ReplicatedStorage").PhaseA:FireServer()
-	    fireclickdetector(workspace.Lobby.Diamond.ClickDetector)
-		game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
-	    wait(6.4)
-	    game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
-	    game:GetService("ReplicatedStorage").Ghostinvisibilitydeactivated:FireServer()
-	    EffectUI.Visible = true
-	    fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-	end
-end)
-
-
-
-local KineticEffect = Instance.new("ImageButton", EffectUI)
-KineticEffect.Size = UDim2.new(0.28, 0, 0.48, 0)
-KineticEffect.Position = UDim2.new(0.36, 0, 0.42, 0)
-KineticEffect.BackgroundColor3 = Color3.new(0, 0, 0)
-KineticEffect.BorderColor3 = Color3.new(0, 0, 0)
-KineticEffect.BorderSizePixel = 1
-KineticEffect.Image = "rbxthumb://type=Asset&id=858523025&w=150&h=150"
-KineticEffect.MouseButton1Click:Connect(function()
-	OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
-	EffectUI.Visible = false
-	fireclickdetector(workspace.Lobby.Kinetic.ClickDetector)
-	wait(0.5)
-	if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Kinetic" then
-		game.StarterGui:SetCore("SendNotification", {Title = "ERROR!", Text = "You don't have Kinetic glove to get effect", Duration = 2})
-		EffectUI.Visible = true
-	else
-		for i = 1, 100 do
-			local args = {
-			    [1] = {
-			        ["Direction"] = Vector3.new(-0, 0.5, -0),
-			        ["Force"] = 0
-			    }
-			}
-			
-			game:GetService("ReplicatedStorage").SelfKnockback:FireServer(unpack(args))
-			wait(0.01)
-		end
-		EffectUI.Visible = true
-	    fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-	end
-end)
-
-
-
-local StartUsing = Instance.new("TextButton", EffectUI)
-StartUsing.Size = UDim2.new(0.28, 0, 0.48, 0)
-StartUsing.Position = UDim2.new(0.67, 0, 0.42, 0)
-StartUsing.BackgroundColor3 = Color3.new(0, 0, 0)
-StartUsing.BorderColor3 = Color3.new(0, 0, 0)
-StartUsing.BorderSizePixel = 1
-StartUsing.Text = "Start"
-StartUsing.TextSize = 40
-StartUsing.TextColor3 = Color3.new(255, 255, 255)
-StartUsing.Font = Enum.Font.SourceSans
-StartUsing.MouseButton1Click:Connect(function()
-	if game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
-		game.StarterGui:SetCore("SendNotification", {Title = "Notification!", Text = "Using default glove make you cannot use Telekinesis push(Slap aura) ", Duration = 2})
-	end
-    EffectUI.Visible = false
-    Antivoid.CanCollide = true
-    edgelordGlove()
-	TeleportForPc = false
-	SlapAura = false
-	X2Ui.Visible = true
-	X2Ui.Text = "Made By DonjoSx"
-end)
-
-
-game.Players.LocalPlayer.CharacterAdded:Connect(PlayerDead)
-userInputService.InputBegan:Connect(onInputBegan)
+    ["Boogie"] = game.ReplicatedStorage.HtS
