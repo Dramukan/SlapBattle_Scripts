@@ -7,7 +7,21 @@
 	 Loaded.Wait(Loaded);
 	 wait(1.5)
  end
- 
+
+local function AntiBarriers(Value)
+	for _, v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
+	    if v.ClassName == "Part" and v.Name == "BLOCK" then
+	        v.CanTouch = Value
+	    end
+	end
+	workspace.DEATHBARRIER.CanTouch = Value
+	workspace.DEATHBARRIER2.CanTouch = Value
+	workspace.dedBarrier.CanTouch = Value
+	workspace.ArenaBarrier.CanTouch = Value
+	workspace.AntiDefaultArena.CanTouch = Value
+	Antivoid.CanCollide = Value
+end
+
 game.StarterGui:SetCore("SendNotification", {Title = "EH EMMH!!1!", Duration = 10, Text = "MADE BY @Donjoscripts 1!!1!"})
 local GloveLeaderstats = "spin"
 _G.RecipePotion = {
@@ -27,13 +41,13 @@ _G.RecipePotion = {
 	["Potion[Slow]"] = {"Mushroom", "Mushroom", "Blue Crystal", "Blue Crystal", "Jade Stone", "Plane Flower"},
 }
 
-local NukeAlchemistGui = game.CoreGui:FindFirstChild("NukeAlchemistGui")
-if NukeAlchemistGui then
-    NukeAlchemistGui:Destroy()
+local ThrowAlchemistGui = game.CoreGui:FindFirstChild("ThrowAlchemistGui")
+if ThrowAlchemistGui then
+    ThrowAlchemistGui:Destroy()
 end
 
 local Screengui = Instance.new("ScreenGui", game.CoreGui)
-Screengui.Name = "NukeAlchemistGui"
+Screengui.Name = "ThrowAlchemistGui"
 Screengui.ResetOnSpawn = false
 
 local MinecraftClickedSound = Instance.new("Sound", Screengui)
@@ -43,22 +57,22 @@ MinecraftClickedSound.Volume = 1
 
 
 -- MainFrame and HideNShow
-local AlcheNuke = Instance.new("TextLabel" ,Screengui)
-AlcheNuke.Size = UDim2.new(0.18, 0, 0.04, 0)
-AlcheNuke.Position = UDim2.new(0.81, 0, 0.1, 0)
-AlcheNuke.Text = "Nuke server | DonjoSx"
-AlcheNuke.BackgroundColor3 = Color3.new(1, 1, 1)
-AlcheNuke.BorderSizePixel,AlcheNuke.BackgroundTransparency = 2, 0
-AlcheNuke.Active,AlcheNuke.Draggable = true, true
+local AlcheThrow = Instance.new("TextLabel" ,Screengui)
+AlcheThrow.Size = UDim2.new(0.18, 0, 0.04, 0)
+AlcheThrow.Position = UDim2.new(0.81, 0, 0.1, 0)
+AlcheThrow.Text = "Throw server | DonjoSx"
+AlcheThrow.BackgroundColor3 = Color3.new(1, 1, 1)
+AlcheThrow.BorderSizePixel,AlcheThrow.BackgroundTransparency = 2, 0
+AlcheThrow.Active,AlcheThrow.Draggable = true, true
 
-local HideButton = Instance.new("TextButton", AlcheNuke)
+local HideButton = Instance.new("TextButton", AlcheThrow)
 HideButton.Size = UDim2.new(0.1, 0, 1, 0)
 HideButton.Position = UDim2.new(0.9, 0, -0.1, 0)
 HideButton.Text,HideButton.TextSize,HideButton.TextColor3 = "-",25, Color3.new(0, 0, 0)
 HideButton.Font = Enum.Font.Cartoon
 HideButton.BackgroundTransparency = 1
 
-local FrameAlt = Instance.new("Frame",AlcheNuke)
+local FrameAlt = Instance.new("Frame",AlcheThrow)
 FrameAlt.Size = UDim2.new(1, 0, 14, 0)
 FrameAlt.Position = UDim2.new(0, 0, 1.1, 0)
 FrameAlt.BackgroundColor3 = Color3.new(1, 1, 1)
@@ -115,7 +129,7 @@ local function ButtonAlt(Text,Name)
     ButtonAlt.BackgroundColor3 = Color3.new(1,1,1)
     ButtonAlt.BorderColor3 = Color3.new(0,0,0)
     ButtonAlt.Font = Enum.Font.SourceSans
-    if Text == "NUKE(Disabled)" then
+    if Text == "Throw(Disabled)" then
         ButtonAlt.LayoutOrder = 3
     else
         ButtonAlt.LayoutOrder = 1
@@ -144,7 +158,7 @@ local DelayValue = 0
 ButtonAlt("Place[Center]", "Place")
 ButtonAlt("Potion[Explosion]", "Potion")
 ButtonAlt("Invis[Ghost]", "Invis")
-ButtonAlt("NUKE(Disabled)", "Nuke")
+ButtonAlt("Throw(Disabled)", "Throw")
 TextAlt("Range["..RangeValue.."]", "Range")
 TextAlt("Height[0]", "Height")
 TextAlt("Delay[0]", "Delay")
@@ -448,269 +462,4 @@ local function TARGETPLACE()
 				elseif Button.Text == "Place[Players]" then
 					local players = game.Players:GetPlayers()
 					local randomPlayer = players[math.random(1, #players)]
-					if randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil then
-					    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = randomPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0, HeightValue, 10)
-					end
-				end
-			end
-		end
-	end
-end
-
-local function NUKENOW()
-	for _, Button in ipairs(AltFFrame:GetChildren()) do
-		if Button:IsA("TextButton") then
-			if Button.Name == "Nuke" then
-				if Button.Text == "NUKE(Enabled)" then
-					Button.Text = "NUKE(Disabled)"		
-					NUKING = false
-					PlaceTP()
-					game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
-				
-				elseif Button.Text == "NUKE(Disabled)" then --/// Enable Nuke ///--
-					Button.Text = "NUKE(Enabled)"
-					if not (game.Workspace.CurrentCamera and game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Humanoid) then return end
-					
-					for _, Button in ipairs(AltFFrame:GetChildren()) do
-						if Button:IsA("TextButton") then
-							if Button.Name == "Place" then
-								if Button.Text == "Place[Center]" or Button.Text == "Place[Island]" or Button.Text == "Place[Players]" then
-									game.Workspace.CurrentCamera.CameraSubject = game.workspace.Origo
-								elseif Button.Text == "Place[Moai]" then
-									game.Workspace.CurrentCamera.CameraSubject = game:GetService("Workspace").Arena.island4.moyai
-								elseif Button.Text == "Place[Slapple]" then
-									game.Workspace.CurrentCamera.CameraSubject = game:GetService("Workspace").Arena.island5.Union
-								elseif Button.Text == "Place[Cannon]" then
-									game.Workspace.CurrentCamera.CameraSubject = game:GetService("Workspace").Arena.CannonIsland.Cannon.MovingCannon.CannonPart.CannonBarrel
-								elseif Button.Text == "Place[Tournament]" then
-									game.Workspace.CurrentCamera.CameraSubject = game:GetService("Workspace").Battlearena.Arena
-								end
-							end
-						end
-					end		
-					NUKING = true	
-					while NUKING do
-						TARGETPLACE()
-						ThrowPotion()
-						wait(DelayValue)
-					end
-				end
-			end
-		end
-	end
-end
-local function InvisibleClone()
-	for _, Button in ipairs(AltFFrame:GetChildren()) do
-		if Button:IsA("TextButton") then
-			if Button.Name == "Invis" then
-				if Button.Text == "Invis[Ghost]" then
-					if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
-						OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
-						fireclickdetector(workspace.Lobby["Ghost"].ClickDetector)
-						game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-						fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-					else
-						game.StarterGui:SetCore("SendNotification", {Title = "Notifications", Duration = 1, Text = "You must have 666+ slaps"})
-					end
-				else
-					if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 0 then
-						fireclickdetector(workspace.Lobby["Replica"].ClickDetector)
-						game.ReplicatedStorage.Ghostinvisibilitydeactivated:FireServer()
-						fireclickdetector(workspace.Lobby[GloveLeaderstats].ClickDetector)
-					else
-						game.StarterGui:SetCore("SendNotification", {Title = "Notifications", Duration = 1, Text = "You must have 4000+ slaps"})
-					end
-				end
-			end
-		end
-	end
-end
-
-local function MakePotion()
-	fireclickdetector(workspace.Lobby["Alchemist"].ClickDetector)
-	wait(0.2)
-	workspace.BountyHunterRoom.BountyHunterBooth._configPart.OpenRemote:InvokeServer()
-	wait()
-	workspace.BountyHunterRoom.BountyHunterBooth._configPart.LeaveRemote:FireServer()
-
-	if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
-		for _, Button in ipairs(AltFFrame:GetChildren()) do
-			if Button:IsA("TextButton") then
-				if Button.Name == "Potion" then
-					_G.MakePotion = Button.Text
-				end
-			end
-		end
-		for b = 1, HowPotion do
-			if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
-				fireclickdetector(workspace.Lobby["Alchemist"].ClickDetector)
-				game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-				fireclickdetector(workspace.Lobby[GloveLeaderstats].ClickDetector)
-			end
-			task.wait(0)
-		    if _G.MakePotion == "Potion[Blind]" then
-		        for i = 1, #_G.RecipePotion["Potion[Nightmare]"] do
-		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion["Potion[Nightmare]"][i]}))
-		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion["Potion[Nightmare]"][i]}))
-		        end
-					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
-				for i = 1, #_G.RecipePotion["Potion[Slow]"] do
-		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion["Potion[Confusion]"][i]}))
-		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion["Potion[Confusion]"][i]}))
-		        end
-					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
-		        for i = 1, #_G.RecipePotion["Potion[Idiot]"] do
-		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion["Potion[Idiot]"][i]}))
-		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion["Potion[Idiot]"][i]}))
-		        end
-					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
-		    elseif _G.MakePotion == "Potion[Soap]" then
-		        for i = 1, #_G.RecipePotion["Potion[Freeze]"] do
-		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion["Potion[Freeze]"][i]}))
-		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion["Potion[Freeze]"][i]}))
-		        end
-					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
-				for i = 1, #_G.RecipePotion["Potion[Paralyzing]"] do
-		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion["Potion[Paralyzing]"][i]}))
-		            game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion["Potion[Paralyzing]"][i]}))
-		        end
-					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
-		    else
-				for i = 1, #_G.RecipePotion[_G.MakePotion] do
-					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.RecipePotion[_G.MakePotion][i]}))
-					game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.RecipePotion[_G.MakePotion][i]}))
-				end
-			end
-			game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
-			fireclickdetector(workspace.Lobby[GloveLeaderstats].ClickDetector)
-		end
-		fireclickdetector(workspace.Lobby[GloveLeaderstats].ClickDetector)
-	else
-		game.StarterGui:SetCore("SendNotification", {Title = "Error", Duration = 1, Text = "Bro don't have Alchemist or don't spam"})
-	end
-end
-
---/// Active ///--
-local NUKING = false
-HideButton.MouseButton1Click:Connect(HideAndShow)
-
-for _, Button in ipairs(AltFFrame:GetChildren()) do
-	if Button:IsA("TextButton") then
-		Button.MouseButton1Click:Connect(function()
-			for _, Button in ipairs(AltFFrame:GetChildren()) do
-				if Button:IsA("TextButton") then
-					Button.BackgroundTransparency = 0
-				end
-			end
-			--Button.BackgroundTransparency = 1
-			MinecraftClickedSound:Play()
-			if Button.Name == "Place" then
-				PlaceTP()
-			elseif Button.Name == "Invis" then
-				InvisibleClone()
-			elseif Button.Name == "Potion" then
-				MakePotion()
-			elseif Button.Name == "Nuke" then
-				NUKENOW()
-			end
-		end)
-	end
-end
-
-
-local function ChangePPText(Name, Text)
-	for _, Button in ipairs(AltFFrame:GetChildren()) do
-		if Button:IsA("TextButton") then
-			if Button.Name == Name then
-				Button.Text = Text
-			end
-		end
-	end
-end
-
-for _, Button in ipairs(ScrollPlaceChosse:GetChildren()) do
-	if Button:IsA("TextButton") then
-		Button.MouseButton1Click:Connect(function()
-		MinecraftClickedSound:Play()
-			if Button.Name == "Center" then
-				ChangePPText("Place", "Place[Center]")
-			elseif Button.Name == "Island" then
-				ChangePPText("Place", "Place[Island]")
-			elseif Button.Name == "Moai" then
-				ChangePPText("Place", "Place[Moai]")
-			elseif Button.Name == "Cannon" then
-				ChangePPText("Place", "Place[Cannon]")
-			elseif Button.Name == "Slapple" then
-				ChangePPText("Place", "Place[Slapple]")
-			elseif Button.Name == "Tournament" then
-				ChangePPText("Place", "Place[Tournament]")
-			elseif Button.Name == "Players" then
-				ChangePPText("Place", "Place[Players]")
-			end
-		end)
-	end
-end
-
-for _, Button in ipairs(ScrollPotionChosse:GetChildren()) do
-	if Button:IsA("TextButton") then
-		Button.MouseButton1Click:Connect(function()
-		MinecraftClickedSound:Play()
-			if Button.Name == "Explosion" then
-				ChangePPText("Potion", "Potion[Explosion]")
-			elseif Button.Name == "Freeze" then
-				ChangePPText("Potion", "Potion[Freeze]")
-			elseif Button.Name == "Lethal" then
-				ChangePPText("Potion", "Potion[Lethal]")
-			elseif Button.Name == "Toxic" then
-				ChangePPText("Potion", "Potion[Toxic]")
-			elseif Button.Name == "AntiToxin" then
-				ChangePPText("Potion", "Potion[AntiToxin]")
-			elseif Button.Name == "Nightmare" then
-				ChangePPText("Potion", "Potion[Nightmare]")
-			elseif Button.Name == "Confusion" then
-				ChangePPText("Potion", "Potion[Confusion]")
-			elseif Button.Name == "Slow" then
-				ChangePPText("Potion", "Potion[Slow]")
-			elseif Button.Name == "Speed" then
-				ChangePPText("Potion", "Potion[Speed]")
-			elseif Button.Name == "Grug" then
-				ChangePPText("Potion", "Potion[Grug]")
-			elseif Button.Name == "Idiot" then
-				ChangePPText("Potion", "Potion[Idiot]")
-			elseif Button.Name == "Paralyzing" then
-				ChangePPText("Potion", "Potion[Paralyzing]")
-			elseif Button.Name == "Invisible" then
-				ChangePPText("Potion", "Potion[Invisible]")
-			elseif Button.Name == "AntiToxin" then
-				ChangePPText("Potion", "Potion[AntiToxin]")
-			elseif Button.Name == "Feather" then
-				ChangePPText("Potion", "Potion[Feather]")
-			elseif Button.Name == "Blind" then
-				ChangePPText("Potion", "Potion[Blind]")
-			elseif Button.Name == "Soap" then
-				ChangePPText("Potion", "Potion[Soap]")
-			end
-		end)
-	end
-end
-
-
-MorePlace.MouseButton1Click:Connect(function()
-	if MorePlace.Text == "<" then
-		MorePlace.Text = ">"
-		PlaceChosse.Visible = not PlaceChosse.Visible
-	else
-		MorePlace.Text = "<"
-		PlaceChosse.Visible = not PlaceChosse.Visible
-	end
-end)
-
-MorePotion.MouseButton1Click:Connect(function()
-	if MorePotion.Text == "<" then
-		MorePotion.Text = ">"
-		PotionChosse.Visible = not PotionChosse.Visible
-	else
-		MorePotion.Text = "<"
-		PotionChosse.Visible = not PotionChosse.Visible
-	end
-end)
+					if randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyri
