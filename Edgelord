@@ -302,27 +302,31 @@ end
 
     
 --Function
-local function WalkAnim()
-	local Humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") or game.Players.LocalPlayer.Character:FindFirstChildOfClass("AnimationController")
-	local ActiveTracks = Humanoid:GetPlayingAnimationTracks()
-	for _, v in pairs(ActiveTracks) do
-		v:AdjustSpeed(0)
-	end
+local function WalkAnim(Anim)
+    local Humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") or game.Players.LocalPlayer.Character:FindFirstChildOfClass("AnimationController")
+    local ActiveTracks = Humanoid:GetPlayingAnimationTracks()
+    for _, v in pairs(ActiveTracks) do
+        if v.Animation.AnimationId == "rbxassetid://"..Anim then
+            v:AdjustSpeed(0)
+        end
+    end
 end
 
-local function StopWalk()
-	local Humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") or game.Players.LocalPlayer.Character:FindFirstChildOfClass("AnimationController")
-	local ActiveTracks = Humanoid:GetPlayingAnimationTracks()
-	for _, v in pairs(ActiveTracks) do
-		v:AdjustSpeed(1)
-	end
+local function StopWalk(Anim)
+    local Humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") or game.Players.LocalPlayer.Character:FindFirstChildOfClass("AnimationController")
+    local ActiveTracks = Humanoid:GetPlayingAnimationTracks()
+    for _, v in pairs(ActiveTracks) do
+        if v.Animation.AnimationId == "rbxassetid://"..Anim then
+            v:AdjustSpeed(1)
+        end
+    end
 end
 local function edgelordGlove()
 	OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 	game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.TheForceAnim):Play()
 	wait(0.988)
 	game.Players.LocalPlayer.leaderstats.Glove.Value = "edgelord"
-	WalkAnim()
+	WalkAnim(16102717448)
 	DarkDarkerYetDarker:Play()
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,-5,0)
 	wait(12.5)
@@ -532,7 +536,7 @@ local gloveHits = {
 	    SlapAura = true
 	
 	    for i,v in pairs(game.Players:GetChildren()) do
-			StopWalk()
+			StopWalk(16102717448)
 	        game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.TheForceAnim):Play()
 	        if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 	            if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
@@ -549,11 +553,19 @@ local gloveHits = {
 	            end
 	        end
 	    end
+		for _, c in pairs(workspace:GetChildren()) do
+			if string.find(c.Name, "Å") and c:FindFirstChild("HumanoidRootPart") then
+				local Magnitude2 = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - c.HumanoidRootPart.Position).Magnitude
+				if Magnitude2 <= 50 then
+					gloveHits[OGlove]:FireServer(c:WaitForChild("HumanoidRootPart"), true)
+				end
+			end
+		end
 
     lastClickTime = tick()
     SlapAura = false
     	wait(0.98)
-	WalkAnim()
+	WalkAnim(16102717448)
 end
 
 
