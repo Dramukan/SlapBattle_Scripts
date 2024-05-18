@@ -374,7 +374,7 @@ local function EClicked()
 							if CartoonPush then
 								game:GetService("ReplicatedStorage").slapstick:FireServer("dash")
 							else
-		                        gloveHits[OGlove]:FireServer(v.Character:WaitForChild("HumanoidRootPart"), true)
+		                        _G.gloveHitsDonjo[OGlove]:FireServer(v.Character:WaitForChild("HumanoidRootPart"), true)
 							end
 	                    end
 	                end
@@ -548,4 +548,39 @@ KineticEffect.MouseButton1Click:Connect(function()
 			    }
 			}
 			
-			game:GetService("ReplicatedStorage").SelfKnockback:FireServer(unpack(args)
+			game:GetService("ReplicatedStorage").SelfKnockback:FireServer(unpack(args))
+			wait(0.01)
+		end
+		EffectUI.Visible = true
+	    fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+	end
+end)
+
+
+
+local StartUsing = Instance.new("TextButton", EffectUI)
+StartUsing.Size = UDim2.new(0.28, 0, 0.48, 0)
+StartUsing.Position = UDim2.new(0.67, 0, 0.42, 0)
+StartUsing.BackgroundColor3 = Color3.new(0, 0, 0)
+StartUsing.BorderColor3 = Color3.new(0, 0, 0)
+StartUsing.BorderSizePixel = 1
+StartUsing.Text = "Start"
+StartUsing.TextSize = 40
+StartUsing.TextColor3 = Color3.new(255, 255, 255)
+StartUsing.Font = Enum.Font.SourceSans
+StartUsing.MouseButton1Click:Connect(function()
+	if game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
+		game.StarterGui:SetCore("SendNotification", {Title = "Notification!", Text = "Using default glove make you cannot use Telekinesis push(Slap aura) ", Duration = 2})
+	end
+    EffectUI.Visible = false
+    Antivoid.CanCollide = true
+    edgelordGlove()
+	TeleportForPc = false
+	SlapAura = false
+	X2Ui.Visible = true
+	X2Ui.Text = "Made By DonjoSx"
+end)
+
+
+game.Players.LocalPlayer.CharacterAdded:Connect(PlayerDead)
+userInputService.InputBegan:Connect(onInputBegan)
