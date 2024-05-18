@@ -1,5 +1,11 @@
 game.StarterGui:SetCore("SendNotification", {Title = "YouTube DonjoScript", Text = "Script made by @DonjoScript", Duration = 3})
-
+if not _G.gloveHitsDonjo then
+   game:GetService("StarterGui"):SetCore("SendNotification",{Title = "System", Text = "not Found Slap_Aura Function, creating function to start use!", Duration = 1})
+   wait(0.7)
+   loadstring(game:HttpGet(("https://raw.githubusercontent.com/Donjosx/SlapBattle_Scripts/main/GloveHitSupport")))()
+else 
+   game:GetService("StarterGui"):SetCore("SendNotification",{Title = "System", Text = "Found Slap_Aura Function, Starting script!", Duration = 1})
+end
 
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("EdgelordGui") then
 	game.Players.LocalPlayer.PlayerGui:FindFirstChild("EdgelordGui"):Destroy()
@@ -349,184 +355,6 @@ local TelekinesisCooldown = 1.4
 
 
 local function EClicked()
-local gloveHits = {
-    ["Default"] = game.ReplicatedStorage.b,
-    ["Extended"] = game.ReplicatedStorage.b,
-    -----------// Glove Hit General Or New Glove \\-----------
-    ["T H I C K"] = game.ReplicatedStorage.GeneralHit,
-    ["Squid"] = game.ReplicatedStorage.GeneralHit,
-    ["Gummy"] = game.ReplicatedStorage.GeneralHit,
-    ["RNG"] = game.ReplicatedStorage.GeneralHit,
-    ["Tycoon"] = game.ReplicatedStorage.GeneralHit,
-    ["Charge"] = game.ReplicatedStorage.GeneralHit,
-    ["Baller"] = game.ReplicatedStorage.GeneralHit,
-    ["Tableflip"] = game.ReplicatedStorage.GeneralHit,
-    ["Booster"] = game.ReplicatedStorage.GeneralHit,
-    ["Shield"] = game.ReplicatedStorage.GeneralHit,
-    ["Track"] = game.ReplicatedStorage.GeneralHit,
-    ["Goofy"] = game.ReplicatedStorage.GeneralHit,
-    ["Confusion"] = game.ReplicatedStorage.GeneralHit,
-    ["Elude"] = game.ReplicatedStorage.GeneralHit,
-    ["Glitch"] = game.ReplicatedStorage.GeneralHit,
-    ["Snowball"] = game.ReplicatedStorage.GeneralHit,
-    ["fish"] = game.ReplicatedStorage.GeneralHit,
-    ["Killerfish"] = game.ReplicatedStorage.GeneralHit,
-    ["🗿"] = game.ReplicatedStorage.GeneralHit,
-    ["Obby"] = game.ReplicatedStorage.GeneralHit,
-    ["Voodoo"] = game.ReplicatedStorage.GeneralHit,
-    ["Leash"] = game.ReplicatedStorage.GeneralHit,
-    ["Flamarang"] = game.ReplicatedStorage.GeneralHit,
-    ["Berserk"] = game.ReplicatedStorage.GeneralHit,
-    ["Quake"] = game.ReplicatedStorage.GeneralHit,
-    ["Rattlebones"] = game.ReplicatedStorage.GeneralHit,
-    ["Chain"] = game.ReplicatedStorage.GeneralHit,
-    ["Ping Pong"] = game.ReplicatedStorage.GeneralHit,
-    ["Whirlwind"] = game.ReplicatedStorage.GeneralHit,
-    ["Slicer"] = game.ReplicatedStorage.GeneralHit,
-    ["Counter"] = game.ReplicatedStorage.GeneralHit,
-    ["Hammer"] = game.ReplicatedStorage.GeneralHit,
-    ["Excavator"] = game.ReplicatedStorage.GeneralHit,
-    ["Home Run"] = game.ReplicatedStorage.GeneralHit,
-    ["Psycho"] = game.ReplicatedStorage.GeneralHit,
-    ["Kraken"] = game.ReplicatedStorage.GeneralHit,
-    ["Gravity"] = game.ReplicatedStorage.GeneralHit,
-    ["Lure"] = game.ReplicatedStorage.GeneralHit,
-    ["Jebaited"] = game.ReplicatedStorage.GeneralHit,
-    ["Meteor"] = game.ReplicatedStorage.GeneralHit,
-    ["Tinkerer"] = game.ReplicatedStorage.GeneralHit,    
-    ["Guardian Angel"] = game.ReplicatedStorage.GeneralHit,
-    ["Sun"] = game.ReplicatedStorage.GeneralHit,
-    ["Necromancer"] = game.ReplicatedStorage.GeneralHit,
-    ["Zombie"] = game.ReplicatedStorage.GeneralHit,
-    ["Dual"] = game.ReplicatedStorage.GeneralHit,
-    ["Alchemist"] = game.ReplicatedStorage.GeneralHit,
-    ["Parry"] = game.ReplicatedStorage.GeneralHit,
-    ["Druid"] = game.ReplicatedStorage.GeneralHit,
-    ["Oven"] = game.ReplicatedStorage.GeneralHit,
-    ["Jester"] = game.ReplicatedStorage.GeneralHit,
-    ["Ferryman"] = game.ReplicatedStorage.GeneralHit,
-    ["Scythe"] = game.ReplicatedStorage.GeneralHit,
-    ["Blackhole"] = game.ReplicatedStorage.GeneralHit,
-    ["Santa"] = game.ReplicatedStorage.GeneralHit,
-    ["Grapple"] = game.ReplicatedStorage.GeneralHit,
-    ["Iceskate"] = game.ReplicatedStorage.GeneralHit,
-    ["Pan"] = game.ReplicatedStorage.GeneralHit,
-    ["Blasphemy"] = game.ReplicatedStorage.GeneralHit,
-    ["Blink"] = game.ReplicatedStorage.GeneralHit,
-    ["Ultra Instinct"] = game.ReplicatedStorage.GeneralHit,
-    ["Admin"] = game.ReplicatedStorage.GeneralHit,
-    ["Prop"] = game.ReplicatedStorage.GeneralHit,
-    ["Joust"] = game.ReplicatedStorage.GeneralHit,
-    ["Slapstick"] = game.ReplicatedStorage.GeneralHit,
-    ["Firework"] = game.ReplicatedStorage.GeneralHit,
-    ["Run"] = game.ReplicatedStorage.GeneralHit,
-    ["Beatdown"] = game.ReplicatedStorage.GeneralHit,
-    ["L.O.L.B.O.M.B"] = game.ReplicatedStorage.GeneralHit,
-    ["Glovel"] = game.ReplicatedStorage.GeneralHit,
-    ["Chicken"] = game.ReplicatedStorage.GeneralHit,
-    ["Divebomb"] = game.ReplicatedStorage.GeneralHit,
-    ["Lamp"] = game.ReplicatedStorage.GeneralHit,
-    ["Pocket"] = game.ReplicatedStorage.GeneralHit,
-    -----------// Glove Hit Normal Or New Glove \\-----------
-    ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
-    ["Brick"] = game.ReplicatedStorage.BrickHit,
-    ["Snow"] = game.ReplicatedStorage.SnowHit,
-    ["Pull"] = game.ReplicatedStorage.PullHit,
-    ["Flash"] = game.ReplicatedStorage.FlashHit,
-    ["Spring"] = game.ReplicatedStorage.springhit,
-    ["Swapper"] = game.ReplicatedStorage.HitSwapper,
-    ["Bull"] = game.ReplicatedStorage.BullHit,
-    ["Dice"] = game.ReplicatedStorage.DiceHit,
-    ["Ghost"] = game.ReplicatedStorage.GhostHit,
-    ["Thanos"] = game.ReplicatedStorage.ThanosHit,
-    ["Stun"] = game.ReplicatedStorage.HtStun,
-    ["Za Hando"] = game.ReplicatedStorage.zhramt,
-    ["Fort"] = game.ReplicatedStorage.Fort,
-    ["Magnet"] = game.ReplicatedStorage.MagnetHIT,
-    ["Pusher"] = game.ReplicatedStorage.PusherHit,
-    ["Anchor"] = game.ReplicatedStorage.hitAnchor,
-    ["Space"] = game.ReplicatedStorage.HtSpace,
-    ["Boomerang"] = game.ReplicatedStorage.BoomerangH,
-    ["Speedrun"] = game.ReplicatedStorage.Speedrunhit,
-    ["Mail"] = game.ReplicatedStorage.MailHit,
-    ["Golden"] = game.ReplicatedStorage.GoldenHit,
-    ["Cheeky"] = game.ReplicatedStorage.CheekyHit,
-    ["Reaper"] = game.ReplicatedStorage.ReaperHit,
-    ["Replica"] = game.ReplicatedStorage.ReplicaHit,
-    ["Defense"] = game.ReplicatedStorage.DefenseHit,
-    ["Killstreak"] = game.ReplicatedStorage.KSHit,
-    ["Reverse"] = game.ReplicatedStorage.ReverseHit,
-    ["Shukuchi"] = game.ReplicatedStorage.ShukuchiHit,
-    ["Duelist"] = game.ReplicatedStorage.DuelistHit,
-    ["woah"] = game.ReplicatedStorage.woahHit,
-    ["Ice"] = game.ReplicatedStorage.IceHit,
-    ["Adios"] = game.ReplicatedStorage.hitAdios,
-    ["Blocked"] = game.ReplicatedStorage.BlockedHit,
-    ["Engineer"] = game.ReplicatedStorage.engiehit,
-    ["Rocky"] = game.ReplicatedStorage.RockyHit,
-    ["Conveyor"] = game.ReplicatedStorage.ConvHit,
-    ["STOP"] = game.ReplicatedStorage.STOP,
-    ["Phantom"] = game.ReplicatedStorage.PhantomHit,
-    ["Wormhole"] = game.ReplicatedStorage.WormHit,
-    ["Acrobat"] = game.ReplicatedStorage.AcHit,
-    ["Plague"] = game.ReplicatedStorage.PlagueHit,
-    ["[REDACTED]"] = game.ReplicatedStorage.ReHit,
-    ["bus"] = game.ReplicatedStorage.hitbus,
-    ["Phase"] = game.ReplicatedStorage.PhaseH,
-    ["Warp"] = game.ReplicatedStorage.WarpHt,
-    ["Bomb"] = game.ReplicatedStorage.BombHit,
-    ["Bubble"] = game.ReplicatedStorage.BubbleHit,
-    ["Jet"] = game.ReplicatedStorage.JetHit,
-    ["Shard"] = game.ReplicatedStorage.ShardHIT,
-    ["potato"] = game.ReplicatedStorage.potatohit,
-    ["CULT"] = game.ReplicatedStorage.CULTHit,
-    ["bob"] = game.ReplicatedStorage.bobhit,
-    ["Buddies"] = game.ReplicatedStorage.buddiesHIT,
-    ["Spy"] = game.ReplicatedStorage.SpyHit,
-    ["Detonator"] = game.ReplicatedStorage.DetonatorHit,
-    ["Rage"] = game.ReplicatedStorage.GRRRR,
-    ["Trap"] = game.ReplicatedStorage.traphi,
-    ["Orbit"] = game.ReplicatedStorage.Orbihit,
-    ["Hybrid"] = game.ReplicatedStorage.HybridCLAP,
-    ["Slapple"] = game.ReplicatedStorage.SlappleHit,
-    ["Disarm"] = game.ReplicatedStorage.DisarmH,
-    ["Dominance"] = game.ReplicatedStorage.DominanceHit,
-    ["Link"] = game.ReplicatedStorage.LinkHit,
-    ["Rojo"] = game.ReplicatedStorage.RojoHit,
-    ["rob"] = game.ReplicatedStorage.robhit,
-    ["Rhythm"] = game.ReplicatedStorage.rhythmhit,
-    ["Nightmare"] = game.ReplicatedStorage.nightmarehit,
-    ["Hitman"] = game.ReplicatedStorage.HitmanHit,
-    ["Thor"] = game.ReplicatedStorage.ThorHit,
-    ["Retro"] = game.ReplicatedStorage.RetroHit,
-    ["Cloud"] = game.ReplicatedStorage.CloudHit,
-    ["Null"] = game.ReplicatedStorage.NullHit,
-    ["spin"] = game.ReplicatedStorage.spinhit,
-    -----------// Glove Hit Stun \\-----------
-    ["Kinetic"] = game.ReplicatedStorage.HtStun,
-    ["Recall"] = game.ReplicatedStorage.HtStun,
-    ["Balloony"] = game.ReplicatedStorage.HtStun,
-    ["Sparky"] = game.ReplicatedStorage.HtStun,
-    ["Boogie"] = game.ReplicatedStorage.HtStun,
-    ["Stun"] = game.ReplicatedStorage.HtStun,
-    ["Coil"] = game.ReplicatedStorage.HtStun,
-    -----------// Glove Hit Diamond \\-----------
-    ["Diamond"] = game.ReplicatedStorage.DiamondHit,
-    ["Megarock"] = game.ReplicatedStorage.DiamondHit,
-    -----------// Glove Hit Celestial \\-----------
-    ["Moon"] = game.ReplicatedStorage.CelestialHit,
-    ["Jupiter"] = game.ReplicatedStorage.CelestialHit,
-    -----------// Glove Hard \\-----------
-    ["Mitten"] = game.ReplicatedStorage.MittenHit,
-    ["Hallow Jack"] = game.ReplicatedStorage.HallowHIT,
-    -----------// Glove Hit Power \\-----------
-    ["OVERKILL"] = game.ReplicatedStorage.Overkillhit,
-    ["The Flex"] = game.ReplicatedStorage.FlexHit,
-    ["Custom"] = game.ReplicatedStorage.CustomHit,
-    ["God's Hand"] = game.ReplicatedStorage.Godshand,
-    ["Error"] = game.ReplicatedStorage.Errorhit
-}
-
     if SlapAura then return end
     if tick() - lastClickTime < TelekinesisCooldown then
         -- TelekinesisCooldown is still active, exit function
@@ -557,7 +385,7 @@ local gloveHits = {
 			if string.find(c.Name, "Å") and c:FindFirstChild("HumanoidRootPart") then
 				local Magnitude2 = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - c.HumanoidRootPart.Position).Magnitude
 				if Magnitude2 <= 50 then
-					gloveHits[OGlove]:FireServer(c:WaitForChild("HumanoidRootPart"), true)
+					_G.gloveHitsDonjo[OGlove]:FireServer(c:WaitForChild("HumanoidRootPart"), true)
 				end
 			end
 		end
@@ -720,39 +548,4 @@ KineticEffect.MouseButton1Click:Connect(function()
 			    }
 			}
 			
-			game:GetService("ReplicatedStorage").SelfKnockback:FireServer(unpack(args))
-			wait(0.01)
-		end
-		EffectUI.Visible = true
-	    fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
-	end
-end)
-
-
-
-local StartUsing = Instance.new("TextButton", EffectUI)
-StartUsing.Size = UDim2.new(0.28, 0, 0.48, 0)
-StartUsing.Position = UDim2.new(0.67, 0, 0.42, 0)
-StartUsing.BackgroundColor3 = Color3.new(0, 0, 0)
-StartUsing.BorderColor3 = Color3.new(0, 0, 0)
-StartUsing.BorderSizePixel = 1
-StartUsing.Text = "Start"
-StartUsing.TextSize = 40
-StartUsing.TextColor3 = Color3.new(255, 255, 255)
-StartUsing.Font = Enum.Font.SourceSans
-StartUsing.MouseButton1Click:Connect(function()
-	if game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
-		game.StarterGui:SetCore("SendNotification", {Title = "Notification!", Text = "Using default glove make you cannot use Telekinesis push(Slap aura) ", Duration = 2})
-	end
-    EffectUI.Visible = false
-    Antivoid.CanCollide = true
-    edgelordGlove()
-	TeleportForPc = false
-	SlapAura = false
-	X2Ui.Visible = true
-	X2Ui.Text = "Made By DonjoSx"
-end)
-
-
-game.Players.LocalPlayer.CharacterAdded:Connect(PlayerDead)
-userInputService.InputBegan:Connect(onInputBegan)
+			game:GetService("ReplicatedStorage").SelfKnockback:FireServer(unpack(args)
