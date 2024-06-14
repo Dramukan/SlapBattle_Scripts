@@ -1,7 +1,5 @@
 game.StarterGui:SetCore("SendNotification", {Title = "YouTube DonjoScript", Text = "Script made by @DonjoScript", Duration = 3})
 if not _G.gloveHitsDonjo then
-   game:GetService("StarterGui"):SetCore("SendNotification",{Title = "System", Text = "not Found Slap_Aura Function, creating function to start use!", Duration = 1})
-   wait(0.7)
    loadstring(game:HttpGet(("https://freenote.biz/raw/zhu54ph9zi")))()
 else 
    game:GetService("StarterGui"):SetCore("SendNotification",{Title = "System", Text = "Found Slap_Aura Function, Starting script!", Duration = 1})
@@ -14,7 +12,7 @@ end
 if game.Workspace:FindFirstChild("AntivoidEdgelord") then
 	game.Workspace:FindFirstChild("AntivoidEdgelord"):Destroy()
 end
--- Reset if player entered portal
+
 if game.Players.LocalPlayer.Character.isInArena.Value == true then
 	game.StarterGui:SetCore("SendNotification", {Title = "ERROR!", Text = "Player entered arena please execute script in lobby", Duration = 3})
 	return
@@ -133,7 +131,7 @@ TouchToPush.Size = UDim2.new(0.112, 0, 0.1, 0)
 TouchToPush.Position = UDim2.new(0.75, 0, 0.53, 0)
 TouchToPush.BackgroundColor3 = Color3.new(0, 0, 0)
 TouchToPush.Text = "TouchToPush(Enabled)"
-TouchToPush.TextSize = 10
+TouchToPush.TextScaled = true
 TouchToPush.TextColor3 = Color3.new(255, 255, 255)
 TouchToPush.Font = Enum.Font.Cartoon
 TouchToPush.Transparency = 0.4
@@ -147,7 +145,7 @@ CartoonMode.Size = UDim2.new(0.112, 0, 0.1, 0)
 CartoonMode.Position = UDim2.new(0.863, 0, 0.53, 0)
 CartoonMode.BackgroundColor3 = Color3.new(0, 0, 0)
 CartoonMode.Text = "Cartoon Mode(Disabled)"
-CartoonMode.TextSize = 10
+CartoonMode.TextScaled = true
 CartoonMode.TextColor3 = Color3.new(255, 255, 255)
 CartoonMode.Font = Enum.Font.Cartoon
 CartoonMode.Transparency = 0.4
@@ -502,10 +500,10 @@ PhaseEffect.BorderColor3 = Color3.new(0, 0, 0)
 PhaseEffect.BorderSizePixel = 1
 PhaseEffect.Image = "rbxthumb://type=Asset&id=13780996974&w=150&h=150"
 PhaseEffect.MouseButton1Click:Connect(function()
-	OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
+	local OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 	EffectUI.Visible = false
     fireclickdetector(workspace.Lobby.Phase.ClickDetector)
-    wait(0.175)
+    wait(0.3)
     if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Phase" then
 	    game.StarterGui:SetCore("SendNotification", {Title = "ERROR!", Text = "You don't have Phase glove", Duration = 2})
 		EffectUI.Visible = true
@@ -532,7 +530,7 @@ KineticEffect.BorderColor3 = Color3.new(0, 0, 0)
 KineticEffect.BorderSizePixel = 1
 KineticEffect.Image = "rbxthumb://type=Asset&id=858523025&w=150&h=150"
 KineticEffect.MouseButton1Click:Connect(function()
-	OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
+	local OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 	EffectUI.Visible = false
 	fireclickdetector(workspace.Lobby.Kinetic.ClickDetector)
 	wait(0.5)
